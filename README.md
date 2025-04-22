@@ -24,7 +24,7 @@ It identifies tokens in the target language’s Unicode range, including broken 
 - Identification of token combinations that may probabilistically form the target language
 - Flexible analysis strategies (e.g., N-gram analysis) to detect high-risk token patterns
 - Configurable analysis methods with future support for additional techniques
--  Adjustment of token weights in the `lm_head` layer to reduce generation likelihood
+- Adjustment of token weights in the `lm_head` layer to reduce generation likelihood
 - Saving of modified models for reuse or deployment
 - Automation of model generation across parameter variations (`min_scale`, `smoothness`)
 
@@ -52,7 +52,7 @@ model:
 # Analysis Configuration
 analysis:
   method: "ngram"
-  n_gram: 2
+  window_size: 2
   sample_size: 1000
 
 # Weight Smoothing Configuration
@@ -79,7 +79,7 @@ python src/main.py --config config.yaml
 - `model.name`: Name or path of the base model to modify
 - `model.output_path`: Directory path to save the modified model (default: ./modified_model)
 - `analysis.method`: Token analysis method (currently supports "ngram")
-- `analysis.n_gram`: Size of N-grams used for token combination analysis (default: 2, range: 2–4)
+- `analysis.window_size`: Size of the window used for combining tokens during analysis. (default: 2, range: 2–4)
 - `analysis.sample_size`: Number of samples to analyze per token (default: 1000)
 - `adjustment.min_scale`: Minimum adjustment ratio to reduce token weights (0.0-1.0)
   - 1.0: No change to weights
