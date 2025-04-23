@@ -7,8 +7,8 @@ model:
 # Analysis Configuration
 analysis:
   method: "ngram"           # Token analysis method (e.g., "ngram")
-  window_size: 2            # Size of the n-gram window (e.g. 2 for bigrams)
-  sample_size: 1000         # Number of samples per token for analysis
+  window_size: 4            # Size of the n-gram window (e.g. 2 for bigrams)
+  sample_size: 100         # Number of samples per token for analysis
 
 # Weight Smoothing Configuration
 adjustment:
