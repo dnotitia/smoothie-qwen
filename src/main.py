@@ -3,6 +3,11 @@ import yaml
 import os
 import logging
 
+from datetime import datetime
+
+from identify import Identifier
+# from analyze import Analyzer
+# from adjust import Adjuster
 from utils import setup_logging, read_config
 
 
@@ -40,6 +45,7 @@ def main():
     # Extract configuration parameters
     model_name = config.model.name
     output_path = config.model.output_path
+    model_dtype = config.model.dtype
 
     # Create output directory if it doesn't exist
     os.makedirs(output_path, exist_ok=True)
@@ -58,8 +64,41 @@ def main():
         (target.range[0], target.range[1]) for target in config.unicode_targets
     ]
 
-    # TODO : 분석 및 조정 로직 구현
+    # Cache directory setup
+    cache_dir = os.path.join(output_path, ".token_cache")
 
+    # Generate timestamp for model output
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    model_basename = os.path.basename(model_name.replace("/", "_"))
+    model_output_dir = os.path.join(
+        output_path, f"{model_basename}_min{min_scale}_smooth{smoothness}_{timestamp}"
+    )
+
+    # Step 1: Identify tokens in the target Unicode ranges
+    logger.info("1. Starting token identification...")
+    identifier = Identifier(
+        model_name=model_name,
+        unicode_ranges=unicode_ranges,
+        cache_dir=cache_dir,
+        model_dtype=model_dtype,
+        verbose=args.verbose
+    )
+
+    # Load model and tokenizer
+    identifier.load_model()
+
+    # Use cache if available and requested
+    cache_loaded = False
+    if args.cache:
+        cache_loaded = identifier.load_token_data()
+    
+    if not cache_loaded:
+        # Identify target and broken tokens
+        identifier.identify_tokens()
+        identifier.save_token_data()
+    
+
+    # TODO: Step 2: Analyze token combinations
 
 if __name__ == "__main__":
     main()
