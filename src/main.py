@@ -5,8 +5,8 @@ import logging
 
 from datetime import datetime
 
-from identify import Identifier
-# from analyze import Analyzer
+from identify import TokenIdentifier
+from analyze import TokenAnalyzer
 # from adjust import Adjuster
 from utils import setup_logging, read_config
 
@@ -76,7 +76,7 @@ def main():
 
     # Step 1: Identify tokens in the target Unicode ranges
     logger.info("1. Starting token identification...")
-    identifier = Identifier(
+    identifier = TokenIdentifier(
         model_name=model_name,
         unicode_ranges=unicode_ranges,
         cache_dir=cache_dir,
@@ -98,7 +98,30 @@ def main():
         identifier.save_token_data()
     
 
-    # TODO: Step 2: Analyze token combinations
+    # Step 2: Analyze token combinations
+    logger.info("2. Starting token combination analysis...")
+    analyzer = TokenAnalyzer(
+        model_name=model_name,
+        tokenizer=identifier.tokenizer,
+        target_tokens=identifier.target_tokens,
+        broken_tokens=identifier.broken_tokens,
+        unicode_ranges=unicode_ranges,
+        cache_dir=cache_dir,
+        verbose=args.verbose
+    )
+
+    if not cache_loaded:
+        if analysis_method == "ngram":
+            analyzer.analyze_ngram_combinations(
+                sample_size=sample_size,
+                max_ngram=window_size
+            )
+            analyzer.save_token_data()
+    else:
+        analyzer.load_token_data()
+
+    # TODO : Step 3: Adjust token weights
+
 
 if __name__ == "__main__":
     main()

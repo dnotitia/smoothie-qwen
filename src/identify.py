@@ -7,7 +7,7 @@ from tqdm import tqdm
 from typing import List, Tuple, Dict, Any
 
 
-class Identifier:
+class TokenIdentifier:
     """
     Identifies tokens in the target Unicode ranges, including broken tokens.
     """
@@ -53,7 +53,7 @@ class Identifier:
         self.broken_tokens_cache = os.path.join(self.cache_dir, f"{model_name_safe}_broken_tokens.json")
         
         # Set up logging
-        self.logger = logging.getLogger("Identifier")
+        self.logger = logging.getLogger("TokenIdentifier")
         if verbose:
             self.logger.setLevel(logging.INFO)
         else:
