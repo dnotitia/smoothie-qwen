@@ -10,6 +10,11 @@ class ModelConfig(BaseModel):
         default="./modified_model", description="Path to save the modified model"
     )
 
+    dtype: str = Field(
+        default="bfloat16",
+        description="Data type for model weights.'",
+    )
+
 
 class AnalysisConfig(BaseModel):
     # TODO : Add support for other analysis methods
