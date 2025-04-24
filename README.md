@@ -1,5 +1,5 @@
 # Smoothie Qwen
-A lightweight adjustment tool for smoothing token probabilities in the `lm_head` layer of [Qwen2.5](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) models to encourage balanced multilingual generation.
+A lightweight adjustment tool for smoothing token probabilities in the [Qwen2.5](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) models to encourage balanced multilingual generation.
 
 ## Contents
 - [Overview](#overview)
