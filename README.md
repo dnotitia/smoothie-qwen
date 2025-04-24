@@ -1,5 +1,5 @@
-# Smoothie-Qwen
-Smooths token weights in the lm_head layer to adjust the probability of specific language generation in LLMs.
+# Smoothie Qwen
+A lightweight adjustment tool for smoothing token probabilities in the `lm_head` layer of Qwen models to encourage balanced multilingual generation.
 
 ## Contents
 - [Overview](#overview)
@@ -13,9 +13,9 @@ Smooths token weights in the lm_head layer to adjust the probability of specific
 
 ## Overview
 
-This repository suppresses specific language generation in LLMs by smoothing token weights in the lm_head layer.
+**Smoothie Qwen** is a post-processing tool designed to subtly refine the token distribution in Qwen language models. By analyzing and adjusting token weights particularly those associated with specific Unicode ranges it helps mitigate unintended biases toward certain languages while preserving the model’s core capabilities.
 
-It identifies tokens in the target language’s Unicode range, including broken tokens from subword tokenization (e.g., BPE). Since some languages can be formed by combining neutral tokens, it uses techniques like N-gram analysis to detect and down-weight token patterns likely to produce the target language.
+This approach is especially useful for applications requiring balanced multilingual outputs, where overrepresentation of one language might skew results. The tool identifies target tokens through Unicode ranges, including subword tokenization (e.g., partial characters from BPE tokenization), and applies probabilistic smoothing to encourage diversity.
 
 ## Key Features
 
@@ -33,22 +33,17 @@ It identifies tokens in the target language’s Unicode range, including broken 
 
 This project uses `uv` for dependency management:
 
-```bash
-pip install uv
-uv venv
-source .venv/bin/activate
-uv pip install -r requirements.txt
+```shell
+$ uv venv
+$ source .venv/bin/activate
+$ uv pip install -r requirements.txt
 ```
 
 ## Usage
 
-Run the script:
-```bash
-# Login to Hugging Face (if needed)
-huggingface-cli login
-
-# Run the main script
-python src/main.py --config config.yaml
+Run with a YAML configuration file:
+```shell
+$ python src/main.py --config config.yaml
 ```
 
 ## Parameters
@@ -67,7 +62,6 @@ python src/main.py --config config.yaml
 - `unicode_targets`: List of Unicode ranges specifying which language tokens to target
 
 
-
 ## Output
 When running the script, the modified models are saved under:
 - TODO : 모델 경로 작성
@@ -84,4 +78,3 @@ When running the script, the modified models are saved under:
 - This method modifies the model weights directly. It is recommended to validate the model’s performance after applying these changes.
 - Unicode target ranges can be customized to suppress other languages or specific token patterns.
 - Additional analysis methods beyond N-gram may be supported in future versions.
-
