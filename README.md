@@ -13,7 +13,7 @@ A lightweight adjustment tool for smoothing token probabilities in the [Qwen2.5]
 
 ## Overview
 
-**Smoothie Qwen** is a post-processing tool designed to subtly refine the token distribution in [Qwen2.5](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) language models. By analyzing and adjusting token weights particularly those associated with specific Unicode ranges it helps mitigate unintended biases toward certain languages while preserving the model’s core capabilities.
+**Smoothie Qwen** is a post-processing tool designed to subtly refine the token distribution in [Qwen2.5](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) models. By analyzing and adjusting token weights particularly those associated with specific Unicode ranges it helps mitigate unintended biases toward certain languages while preserving the model’s core capabilities.
 
 This approach is especially useful for applications requiring balanced multilingual outputs, where overrepresentation of one language might skew results. The tool identifies target tokens through Unicode ranges, including subword tokenization (e.g., partial characters from BPE tokenization), and applies probabilistic smoothing to encourage diversity.
 
