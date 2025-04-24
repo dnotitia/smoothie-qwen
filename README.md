@@ -42,31 +42,7 @@ uv pip install -r requirements.txt
 
 ## Usage
 
-1. Create a YAML configuration file:
-```yaml
-# Model Configuration
-model:
-  name: "Qwen/Qwen2.5-0.5B-Instruct"
-  output_path: "./modified_model"
-
-# Analysis Configuration
-analysis:
-  method: "ngram"
-  window_size: 2
-  sample_size: 1000
-
-# Weight Smoothing Configuration
-adjustment:
-  min_scale: 0.5
-  smoothness: 10.0
-
-# Target Unicode Ranges
-unicode_targets:
-  - name: CJK Unified Ideographs
-    range: [0x4E00, 0x9FFF]
-```
-
-2. Run the script:
+Run the script:
 ```bash
 # Login to Hugging Face (if needed)
 huggingface-cli login
