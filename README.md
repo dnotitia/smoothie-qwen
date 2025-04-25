@@ -4,7 +4,7 @@
 </p>
 
 **Smoothie Qwen** is a lightweight adjustment tool that smooths token probabilities in Qwen2.5 models, enhancing balanced multilingual generation capabilities.  We've uploaded adjusted models to our [Smoothie Qwen Collection on 🤗 Hugging Face](https://huggingface.co/collections/dnotitia/private-models-smoothie-qwen-68075260246ae00e76cb4f3a), making them readily available for integration into your projects.
-- [dnotitia/Smoothie-Qwen2.5-0.5-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-0.5B-Instruct)
+- [dnotitia/Smoothie-Qwen2.5-0.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-0.5B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-1.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-1.5B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-3B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-3B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-7B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-7B-Instruct)
@@ -75,7 +75,7 @@ $ python src/main.py --config config.yaml
 ## How It Works
 1. **Token Identification**: Identify tokens in the target Unicode ranges, including broken or malformed tokens from subword tokenization (e.g., BPE artifacts).
 2. **Token Combination Analysis**: Analyze token sequences using N-gram methods to detect combinations that are likely to produce the target language.
-3. **Weight Smoothing**: Adjust (down-weight) the probabilities of the identified tokens in the lm_head layer based on the specified min_scale and smoothness parameters.
+3. **Weight Smoothing**: Adjust (down-weight) the probabilities of the identified tokens in the `lm_head` layer based on the specified min_scale and smoothness parameters.
 4. **Model Saving**: Save the model with updated token weights to a new directory for later use or deployment.
 
 
