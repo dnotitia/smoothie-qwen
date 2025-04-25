@@ -85,5 +85,5 @@ $ python src/main.py --config config.yaml
 - Additional analysis methods beyond N-gram may be supported in future versions.
 
 ## References
-- Logo designed by [J비주얼스쿨](https://www.jvisualschool.com/)
-- [Qwen2.5 모델 확률 조정을 통해 중국어 안나오게 하기](https://www.linkedin.com/posts/jg-choi_github-workddllmforeignblock-llm-%EB%AA%A8%EB%8D%B8%EC%9D%98-activity-7306159255936540673-_RoZ)
+- Logo design with ❤️ by [J비주얼스쿨](https://www.jvisualschool.com/)
+- [Qwen2.5 모델 확률 조정을 통해 중국어 안나오게 하기](https://www.linkedin.com/posts/jg-choi_github-workddllmforeignblock-llm-%EB%AA%A8%EB%8D%B8%EC%9D%98-activity-7306159255936540673-_RoZ), LinkedIn
