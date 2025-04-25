@@ -1,5 +1,12 @@
 # Smoothie Qwen
-A lightweight adjustment tool for smoothing token probabilities in the [Qwen2.5](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) models to encourage balanced multilingual generation.
+A lightweight adjustment tool for smoothing token probabilities in the Qwen2.5 models to encourage balanced multilingual generation. We have uploaded models adjusted using Smoothie Qwen to enhance multilingual balance. Check them out at [Smoothie Qwen](https://huggingface.co/collections/dnotitia/private-models-smoothie-qwen-68075260246ae00e76cb4f3a) collection for direct access and integration into your projects.
+- [dnotitia/Smoothie-Qwen2.5-0.5-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-0.5B-Instruct)
+- [dnotitia/Smoothie-Qwen2.5-1.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-1.5B-Instruct)
+- [dnotitia/Smoothie-Qwen2.5-3B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-3B-Instruct)
+- [dnotitia/Smoothie-Qwen2.5-7B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-7B-Instruct)
+- [dnotitia/Smoothie-Qwen2.5-14B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-14B-Instruct)
+- [dnotitia/Smoothie-Qwen2.5-32B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-32B-Instruct)
+- [dnotitia/Smoothie-Qwen2.5-72B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-72B-Instruct)
 
 ## Contents
 - [Overview](#overview)
@@ -13,7 +20,7 @@ A lightweight adjustment tool for smoothing token probabilities in the [Qwen2.5]
 
 ## Overview
 
-**Smoothie Qwen** is a post-processing tool designed to subtly refine the token distribution in [Qwen2.5](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) models. By analyzing and adjusting token weights particularly those associated with specific Unicode ranges it helps mitigate unintended biases toward certain languages while preserving the model’s core capabilities.
+**Smoothie Qwen** is a post-processing tool designed to subtly refine the token distribution in Qwen2.5 models. By analyzing and adjusting token weights particularly those associated with specific Unicode ranges it helps mitigate unintended biases toward certain languages while preserving the model’s core capabilities.
 
 This approach is especially useful for applications requiring balanced multilingual outputs, where overrepresentation of one language might skew results. The tool identifies target tokens through Unicode ranges, including subword tokenization (e.g., partial characters from BPE tokenization), and applies probabilistic smoothing to encourage diversity.
 
