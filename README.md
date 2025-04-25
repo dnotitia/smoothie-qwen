@@ -1,4 +1,8 @@
 # Smoothie Qwen
+<p align="center">
+    <img src="asset/smoothie-qwen-logo.png" width="400">
+</p>
+
 A lightweight adjustment tool for smoothing token probabilities in the Qwen2.5 models to encourage balanced multilingual generation. We have uploaded models adjusted using Smoothie Qwen. Explore the complete  collection at [Smoothie Qwen Collection on 🤗 Hugging Face](https://huggingface.co/collections/dnotitia/private-models-smoothie-qwen-68075260246ae00e76cb4f3a) for integration into your projects.
 - [dnotitia/Smoothie-Qwen2.5-0.5-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-0.5B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-1.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-1.5B-Instruct)
@@ -14,9 +18,9 @@ A lightweight adjustment tool for smoothing token probabilities in the Qwen2.5 m
 - [Installation](#installation)
 - [Usage](#usage)
 - [Parameters](#parameters)
-- [Output](#output)
 - [How It Works](#how-it-works)
 - [Notes](#notes)
+- [References](#references)
 
 ## Overview
 
@@ -68,12 +72,6 @@ $ python src/main.py --config config.yaml
   - Lower values produce more gradual, smoother adjustments
 - `unicode_targets`: List of Unicode ranges specifying which language tokens to target
 
-
-## Output
-When running the script, the modified models are saved under:
-- TODO : 모델 경로 작성
-
-
 ## How It Works
 1. **Token Identification**: Identify tokens in the target Unicode ranges, including broken or malformed tokens from subword tokenization (e.g., BPE artifacts).
 2. **Token Combination Analysis**: Analyze token sequences using N-gram methods to detect combinations that are likely to produce the target language.
@@ -85,3 +83,7 @@ When running the script, the modified models are saved under:
 - This method modifies the model weights directly. It is recommended to validate the model’s performance after applying these changes.
 - Unicode target ranges can be customized to suppress other languages or specific token patterns.
 - Additional analysis methods beyond N-gram may be supported in future versions.
+
+## References
+- Logo designed by [J비주얼스쿨](https://www.jvisualschool.com/)
+- [Qwen2.5 모델 확률 조정을 통해 중국어 안나오게 하기](https://www.linkedin.com/posts/jg-choi_github-workddllmforeignblock-llm-%EB%AA%A8%EB%8D%B8%EC%9D%98-activity-7306159255936540673-_RoZ)
