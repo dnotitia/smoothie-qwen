@@ -1,5 +1,5 @@
 # Smoothie Qwen
-A lightweight adjustment tool for smoothing token probabilities in the Qwen2.5 models to encourage balanced multilingual generation. We have uploaded models adjusted using Smoothie Qwen to enhance multilingual balance. Check them out at [Smoothie Qwen](https://huggingface.co/collections/dnotitia/private-models-smoothie-qwen-68075260246ae00e76cb4f3a) collection for direct access and integration into your projects.
+A lightweight adjustment tool for smoothing token probabilities in the Qwen2.5 models to encourage balanced multilingual generation. We have uploaded models adjusted using Smoothie Qwen. Explore the complete  collection at [Smoothie Qwen Collection on 🤗 Hugging Face](https://huggingface.co/collections/dnotitia/private-models-smoothie-qwen-68075260246ae00e76cb4f3a) for integration into your projects.
 - [dnotitia/Smoothie-Qwen2.5-0.5-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-0.5B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-1.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-1.5B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-3B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-3B-Instruct)
