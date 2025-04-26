@@ -4,6 +4,7 @@
 </p>
 
 **Smoothie Qwen** is a lightweight adjustment tool that smooths token probabilities in Qwen2.5 models, enhancing balanced multilingual generation capabilities.  We've uploaded adjusted models to our [Smoothie Qwen Collection on 🤗 Hugging Face](https://huggingface.co/collections/dnotitia/private-models-smoothie-qwen-68075260246ae00e76cb4f3a), making them readily available for integration into your projects.
+
 - [dnotitia/Smoothie-Qwen2.5-0.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-0.5B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-1.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-1.5B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-3B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-3B-Instruct)
@@ -63,10 +64,10 @@ $ python src/main.py --config config.yaml
 - `analysis.method`: Token analysis method (currently supports "ngram")
 - `analysis.window_size`: Size of the window used for combining tokens during analysis. (default: 2, range: 2–4)
 - `analysis.sample_size`: Number of samples to analyze per token (default: 1000)
-- `adjustment.min_scale`: Minimum adjustment ratio to reduce token weights (0.0-1.0)
-  - 1.0: No change to weights
-  - 0.1: Target token weights multiplied by 0.1
-  - Lower values reduce the probability of target tokens being generated
+- `adjustment.min_scale`: Minimum scaling factor applied to target tokens when fully suppressed (range: 0.0–1.0).
+  - 1.0: No weight adjustment.
+  - 0.1: The most suppressed target tokens will have their weights multiplied by 0.1.
+  - Lower `min_scale` values allow stronger suppression of identified tokens.
 - `adjustment.smoothness`: Intensity of smoothing adjustment (>1)
   - Higher values lead to more aggressive weight reduction
   - Lower values produce more gradual, smoother adjustments
