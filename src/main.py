@@ -1,6 +1,7 @@
 import argparse
 import yaml
 import os
+import sys
 import logging
 
 from datetime import datetime
@@ -81,7 +82,7 @@ def main():
         unicode_ranges=unicode_ranges,
         cache_dir=cache_dir,
         model_dtype=model_dtype,
-        verbose=args.verbose
+        verbose=args.verbose,
     )
 
     # Load model and tokenizer
@@ -91,12 +92,11 @@ def main():
     cache_loaded = False
     if args.cache:
         cache_loaded = identifier.load_token_data()
-    
+
     if not cache_loaded:
         # Identify target and broken tokens
         identifier.identify_tokens()
         identifier.save_token_data()
-    
 
     # Step 2: Analyze token combinations
     logger.info("2. Starting token combination analysis...")
@@ -107,14 +107,13 @@ def main():
         broken_tokens=identifier.broken_tokens,
         unicode_ranges=unicode_ranges,
         cache_dir=cache_dir,
-        verbose=args.verbose
+        verbose=args.verbose,
     )
 
     if not cache_loaded:
         if analysis_method == "ngram":
             analyzer.analyze_ngram_combinations(
-                sample_size=sample_size,
-                max_ngram=window_size
+                sample_size=sample_size, max_ngram=window_size
             )
             analyzer.save_token_data()
     else:
@@ -127,7 +126,7 @@ def main():
         tokenizer=identifier.tokenizer,
         target_tokens=identifier.target_tokens,
         token_analysis=analyzer.token_analysis,
-        verbose=args.verbose
+        verbose=args.verbose,
     )
 
     modified_count = None
@@ -141,12 +140,12 @@ def main():
             weights = [0.6, 0.3, 0.1]
         else:
             weights = [1.0, 0.0, 0.0]
-        
+
         modified_count = adjuster.modify_weights(
             ngram_weights=weights,
             target_scale_factor=min_scale,
             log_base=smoothness,
-            minimum_scale_factor=min_scale
+            minimum_scale_factor=min_scale,
         )
     else:
         # Force the use of n-gram analysis
@@ -158,5 +157,37 @@ def main():
     logger.info("4. Saving modified model...")
     adjuster.save_modified_model(model_output_dir)
 
+    # Log results
+    logger.info("=" * 50)
+    logger.info("Token weight smoothing completed")
+    logger.info(f"- Model: {model_name}")
+    logger.info(f"- Output path: {model_output_dir}")
+    logger.info(f"- Target tokens: {len(identifier.target_tokens):,}")
+    logger.info(f"- Broken tokens: {len(identifier.broken_tokens):,}")
+    logger.info(f"- Modified tokens: {modified_count:,}")
+    logger.info(f"- Cache used: {'Yes' if cache_loaded else 'No'}")
+    logger.info("=" * 50)
+
+    # Create a README in the output directory with configuration details
+    with open(os.path.join(model_output_dir, "README.md"), "w") as f:
+        f.write(f"# Modified Model: {model_name}\n\n")
+        f.write("## Configuration\n")
+        f.write(f"- Base model: {model_name}\n")
+        f.write(f"- Minimum scale factor: {min_scale}\n")
+        f.write(f"- Smoothness: {smoothness}\n")
+        f.write(f"- Sample size: {sample_size}\n\n")
+        f.write("## Unicode Ranges\n")
+        for i, r in enumerate(unicode_ranges):
+            f.write(f"- Range {i+1}: {hex(r[0])} - {hex(r[1])}\n")
+        f.write("\n## Statistics\n")
+        f.write(f"- Target tokens: {len(identifier.target_tokens):,}\n")
+        f.write(f"- Broken tokens: {len(identifier.broken_tokens):,}\n")
+        f.write(f"- Modified tokens: {modified_count:,}\n")
+
+    logger.info(f"Configuration saved to {os.path.join(model_output_dir, 'README.md')}")
+
+    return 0
+
+
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
