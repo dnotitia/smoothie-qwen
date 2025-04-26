@@ -78,6 +78,20 @@ $ python src/main.py --config config.yaml
 3. **Weight Smoothing**: Adjust (down-weight) the probabilities of the identified tokens in the `lm_head` layer based on the specified min_scale and smoothness parameters.
 4. **Model Saving**: Save the model with updated token weights to a new directory for later use or deployment.
 
+### Weight Smoothing Formula
+
+The scale factor **S** applied to each token's weight is calculated as:
+
+<p align="center">
+  <img src="asset/formula.png" width="850">
+</p>
+
+where:
+- `min_scale` defines the minimum weight scaling allowed (between 0 and 1).
+- `smoothness` controls the sharpness of suppression (higher values = more aggressive).
+- `weighted_prob` is the estimated probability of generating the target language (between 0 and 1).
+
+The original token weight is multiplied by **S** to smoothly adjust the generation probability.
 
 ## Notes
 - This method modifies the model weights directly. It is recommended to validate the model’s performance after applying these changes.
