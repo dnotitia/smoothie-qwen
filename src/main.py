@@ -7,7 +7,7 @@ from datetime import datetime
 
 from identify import TokenIdentifier
 from analyze import TokenAnalyzer
-# from adjust import Adjuster
+from adjust import WeightAdjuster
 from utils import setup_logging, read_config
 
 
@@ -120,8 +120,15 @@ def main():
     else:
         analyzer.load_token_data()
 
-    # TODO : Step 3: Adjust token weights
-
+    # Step 3: Adjust token weights
+    logger.info("3. Starting weight adjustment...")
+    adjuster = WeightAdjuster(
+        model=identifier.model,
+        tokenizer=identifier.tokenizer,
+        target_tokens=identifier.target_tokens,
+        token_analysis=analyzer.token_analysis,
+        verbose=args.verbose
+    )
 
 if __name__ == "__main__":
     main()
