@@ -130,5 +130,33 @@ def main():
         verbose=args.verbose
     )
 
+    modified_count = None
+    if analysis_method == "ngram":
+        # Determine weights based on window size for n-gram analysis
+        if window_size == 2:
+            weights = [1.0, 0.0, 0.0]
+        elif window_size == 3:
+            weights = [0.7, 0.3, 0.0]
+        elif window_size == 4:
+            weights = [0.6, 0.3, 0.1]
+        else:
+            weights = [1.0, 0.0, 0.0]
+        
+        modified_count = adjuster.modify_weights(
+            ngram_weights=weights,
+            target_scale_factor=min_scale,
+            log_base=smoothness,
+            minimum_scale_factor=min_scale
+        )
+    else:
+        # Force the use of n-gram analysis
+        logger.error(f"Unsupported analysis method: {analysis_method}")
+        logger.error("Only 'ngram' analysis method is currently supported")
+        return 1
+
+    # Step 4: Save the modified model
+    logger.info("4. Saving modified model...")
+    adjuster.save_modified_model(model_output_dir)
+
 if __name__ == "__main__":
     main()
