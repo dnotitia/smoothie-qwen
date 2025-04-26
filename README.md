@@ -84,6 +84,122 @@ $ python src/main.py --config config.yaml
 - Unicode target ranges can be customized to suppress other languages or specific token patterns.
 - Additional analysis methods beyond N-gram may be supported in future versions.
 
+---
+
+## Experiments
+We conducted example experiments using **Qwen2.5-Coder-14B-Instruct** to demonstrate how **Smoothie Qwen** can be tuned to suppress unintended Chinese generation while maintaining core task performance. These settings are provided as a reference and can be freely adjusted according to user preferences and objectives.
+
+> **Note:**
+> These experiments were intended as simple tests, using a minimal n-gram window size of 2 to validate basic behavior with limited token combinations.
+
+### Example Setup
+- **Base Model**: `Qwen2.5-Coder-14B-Instruct`
+- **Evaluation Tool**:  
+  - Customized [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) was used for evaluation.
+
+### Evaluation Metrics and Datasets
+
+- **no_chinese_score**  
+  Measures whether generated text contains Chinese characters.
+  - **1.0**: No Chinese detected (successful suppression)
+  - **0.0**: Chinese detected (suppression failed)
+
+  This metric was evaluated using:
+  - [**KMMLU**](https://huggingface.co/datasets/HAERAE-HUB/KMMLU):
+    - Korean prompts without reference answers, freeform generation.
+    - Evaluated on:
+      - `kmmlu_generation_nochinese_cs` (Computer Science)
+      - `kmmlu_generation_nochinese_ie` (Industrial Engineering)
+  - [**Custom Chinese Prompts**](https://huggingface.co/datasets/dnotitia/chinese-prompts_v001):
+    - Synthetic dataset combining Korean words/phrases with templates encouraging Chinese translation.
+    - Covers diverse categories (numbers, colors, food, family, animals, places, etc.).
+
+- **acc**  
+  Standard accuracy on KMMLU multiple-choice tasks, measuring whether the model maintains core task performance.
+
+> **Note:**
+> Smoothie Qwen is designed for flexibility. Users can freely choose datasets and evaluation methods according to their goals.
+
+---
+
+## 1. Weight Adjustment Summary
+
+- **Vocabulary size**: 151,643 tokens
+- **Target tokens**: 26,153 tokens (17.25%)
+- **Broken tokens**: 1,457 tokens (0.96%)
+
+<p align="center">
+  <img src="asset/token_weight_heatmap_2d.png" width="600">
+</p>
+
+<p align="center">
+  <img src="asset/token_weight_heatmap_3d.png" width="600">
+</p>
+
+---
+
+## 2. Experiment 1: min_scale Adjustment
+
+The `min_scale` parameter controls the maximum reduction of token weights for identified Chinese tokens.
+
+| Experiment | min_scale | chin_prom | chin_cs | chin_ie | acc_cs | acc_ie |
+|:----------:|:---------:|:---------:|:-------:|:-------:|:------:|:------:|
+| base (m10) | 1.0       | 0.190     | 0.995   | 0.990   | 0.715  | 0.385  |
+| m09        | 0.9       | 0.250     | 0.995   | 1.000   | 0.710  | 0.395  |
+| m08        | 0.8       | 0.375     | 0.995   | 1.000   | 0.710  | 0.395  |
+| m07        | 0.7       | 0.605     | 0.995   | 1.000   | 0.710  | 0.395  |
+| m06        | 0.6       | 0.875     | 0.995   | 1.000   | 0.710  | 0.395  |
+| m05        | 0.5       | 0.950     | 0.995   | 1.000   | 0.710  | 0.395  |
+| m04        | 0.4       | 0.965     | 0.995   | 1.000   | 0.710  | 0.395  |
+| m03        | 0.3       | 0.980     | 0.995   | 1.000   | 0.710  | 0.395  |
+| m02        | 0.2       | 0.985     | 1.000   | 1.000   | 0.710  | 0.395  |
+| m01        | 0.1       | 0.990     | 1.000   | 1.000   | 0.710  | 0.395  |
+
+- Lowering `min_scale` significantly improves Chinese suppression scores.
+- Task performance (`acc_cs`, `acc_ie`) remains stable across all settings.
+- **Reasonable trade-off**: `min_scale = 0.5`.
+
+<p align="center">
+  <img src="asset/exp1_min_scale.png" width="600">
+</p>
+
+---
+
+## 3. Experiment 2: smoothness Adjustment
+
+The `smoothness` parameter controls the curvature of the scaling applied to token weights during smoothing.
+
+| Experiment | smoothness | chin_prom | chin_cs | chin_ie | acc_cs | acc_ie |
+|:----------:|:----------:|:---------:|:-------:|:-------:|:------:|:------:|
+| log1_1     | 1.1        | 0.920     | 0.995   | 1.000   | 0.710  | 0.395  |
+| log10      | 10.0       | 0.950     | 0.995   | 1.000   | 0.710  | 0.395  |
+| log100     | 100.0      | 0.990     | 1.000   | 1.000   | 0.710  | 0.395  |
+| log1000    | 1000.0     | 1.000     | 1.000   | 1.000   | 0.710  | 0.395  |
+
+- Increasing `smoothness` leads to stronger suppression performance.
+- The selected value (`smoothness = 10.0`) provided satisfactory results.
+
+<p align="center">
+  <img src="asset/exp2_smoothness.png" width="600">
+</p>
+
+---
+
+## Conclusion
+
+Through targeted token weight adjustment using **Smoothie Qwen**,
+we achieve **over 90% reduction** in unintended Chinese generation while maintaining the model’s original task capabilities.
+
+- **Suggested configuration**:
+  - `min_scale = 0.5`
+  - `smoothness = 10.0`
+
+These settings represent a practical balance between suppression effectiveness and task performance,
+but users are encouraged to adjust them further depending on their specific goals.
+
+Smoothie Qwen models are ready to be adapted into projects requiring more balanced and controlled multilingual generation.
+
+
 ## References
 - Logo design with ❤️ by [J비주얼스쿨](https://www.jvisualschool.com/)
 - [Qwen2.5 모델 확률 조정을 통해 중국어 안나오게 하기](https://www.linkedin.com/posts/jg-choi_github-workddllmforeignblock-llm-%EB%AA%A8%EB%8D%B8%EC%9D%98-activity-7306159255936540673-_RoZ), LinkedIn
