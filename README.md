@@ -59,19 +59,19 @@ $ python src/main.py --config config.yaml
 ```
 
 ## Parameters
-- `model.name`: Name or path of the base model to modify
-- `model.output_path`: Directory path to save the modified model (default: ./modified_model)
-- `analysis.method`: Token analysis method (currently supports "ngram")
+- `model.name`: Name or path of the base model to modify.
+- `model.output_path`: Directory path to save the modified model (default: ./modified_model).
+- `analysis.method`: Token analysis method (currently supports "ngram").
 - `analysis.window_size`: Size of the window used for combining tokens during analysis. (default: 2, range: 2–4)
-- `analysis.sample_size`: Number of samples to analyze per token (default: 1000)
+- `analysis.sample_size`: Number of samples to analyze per token (default: 1000).
 - `adjustment.min_scale`: Minimum scaling factor applied to target tokens when fully suppressed (range: 0.0–1.0).
   - 1.0: No weight adjustment.
   - 0.1: The most suppressed target tokens will have their weights multiplied by 0.1.
   - Lower `min_scale` values allow stronger suppression of identified tokens.
-- `adjustment.smoothness`: Intensity of smoothing adjustment (>1)
-  - Higher values lead to more aggressive weight reduction
-  - Lower values produce more gradual, smoother adjustments
-- `unicode_targets`: List of Unicode ranges specifying which language tokens to target
+- `adjustment.smoothness`: Controls the steepness of weight suppression based on token generation probability (>1).
+  - Higher values cause the weight to decrease more sharply even at lower probabilities.
+  - Lower values result in a more gradual and smoother suppression curve.
+- `unicode_targets`: List of Unicode ranges specifying which language tokens to target.
 
 ## How It Works
 1. **Token Identification**: Identify tokens in the target Unicode ranges, including broken or malformed tokens from subword tokenization (e.g., BPE artifacts).
