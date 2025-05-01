@@ -1,0 +1,42 @@
+# Model Configuration
+model:
+  name: "Qwen/Qwen2.5-0.5B-Instruct"   # Target model to modify
+  output_path: "./output"              # Path to save the modified model
+  dtype: "bfloat16"                    # Data type for model weights (e.g. "bfloat16")
+
+# Analysis Configuration
+analysis:
+  method: "ngram"                 # Token analysis method (e.g., "ngram")
+  window_size: 4                  # Size of the n-gram window (e.g. 2 for bigrams)
+  sample_size: 1000               # Number of samples per token for analysis
+  ngram_weights: [0.5, 0.3, 0.2]  # Use the first weight for window_size 2, fisrt two for 3, all three for 4.
+
+# Weight Smoothing Configuration
+adjustment:
+  min_scale: 0.5            # Minimum scaling factor for target token weights (0.0–1.0)
+  smoothness: 10.0          # Smoothing intensity (>1). Higher = more aggressive down-weighting
+
+# Target Unicode Ranges
+unicode_targets:
+  - name: CJK Unified Ideographs
+    range: [0x4E00, 0x9FFF]
+  - name: CJK Unified Ideographs Extension A
+    range: [0x3400, 0x4DBF]
+  - name: CJK Unified Ideographs Extension B
+    range: [0x20000, 0x2A6DF]
+  - name: CJK Compatibility Ideographs
+    range: [0xF900, 0xFAFF]
+  - name: CJK Radicals Supplement
+    range: [0x2E80, 0x2EFF]
+  - name: Kangxi Radicals
+    range: [0x2F00, 0x2FDF]
+  - name: Ideographic Description Characters
+    range: [0x2FF0, 0x2FFF]
+  - name: CJK Symbols and Punctuation
+    range: [0x3000, 0x303F]
+  - name: CJK Strokes
+    range: [0x31C0, 0x31EF]
+  - name: Enclosed CJK Letters and Months
+    range: [0x3200, 0x32FF]
+  - name: CJK Compatibility
+    range: [0x3300, 0x33FF]
