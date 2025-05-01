@@ -145,11 +145,11 @@ We conducted simple experiments with **Qwen2.5-Coder-14B-Instruct** to validate 
 
 We used two main datasets to evaluate our approach with the following metrics:
 
-- [**Custom Chinese Elicitation Dataset**](https://huggingface.co/datasets/dnotitia/chinese-prompts_v001):
+- **Custom Chinese Elicitation Dataset**:
   - Synthetic prompts designed to elicit Chinese translation
   - Measured with **chin_prom**: Chinese suppression rate on prompts deliberately designed to trigger Chinese responses
 
-- [**KMMLU**](https://huggingface.co/datasets/HAERAE-HUB/KMMLU) (Korean Multiple-choice Massive Language Understanding):
+- [**KMMLU**](https://huggingface.co/datasets/HAERAE-HUB/KMMLU) (Korean-MMLU):
   - Korean benchmark covering Computer Science (CS) and Industrial Engineering (IE) domains
   - Measured with:
     - **chin_cs/chin_ie**: Chinese suppression rate in generated responses
