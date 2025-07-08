@@ -109,6 +109,11 @@ $ python src/main.py --config config.yaml
 - `unicode_targets`: List of Unicode ranges specifying which language tokens to target.
 
 ## How It Works
+
+<p align="center">
+  <img src="asset/flow_chart.png" width="800">
+</p>
+
 1. **Token Identification**: Identify tokens in the target Unicode ranges, including broken or malformed tokens from subword tokenization (e.g., BPE artifacts).
 2. **Token Combination Analysis**: Analyze token sequences using N-gram methods to detect combinations that are likely to produce the target language.
 3. **Weight Smoothing**: Adjust (down-weight) the probabilities of the identified tokens in the `lm_head` layer based on the specified min_scale and smoothness parameters.
@@ -122,12 +127,23 @@ The scale factor **S** applied to each token's weight is calculated as:
   <img src="asset/formula.png" width="850">
 </p>
 
+<p align="center">
+  <img src="asset/smoothing_function_plot.png" width="600">
+</p>
+
 where:
 - `min_scale` defines the minimum weight scaling allowed (between 0 and 1).
 - `smoothness` controls the sharpness of suppression (higher values = more aggressive).
 - `weighted_prob` is the estimated probability of generating the target language (between 0 and 1).
 
 The original token weight is multiplied by **S** to smoothly adjust the generation probability.
+
+<p align="center">
+  <img src="asset/weight_comparison.png" width="800">
+</p>
+<p align="center">
+  <i>A 3D visualization comparing <code>lm_head</code> weights before (left) and after (right) the smoothing transformation. <br>In the modified model, the weights for target tokens are scaled towards zero, creating a distinctly "flattened" surface. This illustrates the targeted nature of the smoothing process.</i>
+</p>
 
 ---
 
