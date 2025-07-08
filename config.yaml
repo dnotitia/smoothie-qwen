@@ -1,6 +1,6 @@
 # Model Configuration
 model:
-  name: "Qwen/Qwen2.5-0.5B-Instruct"   # Target model to modify
+  name: "Qwen/Qwen3-14B"               # Target model to modify
   output_path: "./output"              # Path to save the modified model
   dtype: "bfloat16"                    # Data type for model weights (e.g. "bfloat16")
 
