@@ -3,10 +3,14 @@
     <img src="asset/smoothie-qwen-logo.png" width="400">
 </p>
 
+<p align="center">
+          📑 <a href="https://arxiv.org/abs/2507.05686">Paper</a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/collections/dnotitia/smoothie-qwen3-6811896ebb3a255de7b5b437">Smoothie Qwen3 Collection</a>&nbsp&nbsp | &nbsp&nbsp🤗  <a href="https://huggingface.co/collections/dnotitia/smoothie-qwen25-68075260246ae00e76cb4f3a">Smoothie Qwen2.5 Collection</a>
+</p>
+
 **Smoothie Qwen** is a lightweight adjustment tool that smooths token probabilities in Qwen and similar models, enhancing balanced multilingual generation capabilities. We've uploaded pre-adjusted models to our [Smoothie Qwen Collection on 🤗 Hugging Face](https://huggingface.co/collections/dnotitia/smoothie-qwen3-6811896ebb3a255de7b5b437) for your convenience:
 
 <details open>
-<summary><b>Smoothie-Qwen3 Collection</b> (click to expand)</summary>
+<summary><b>Smoothie Qwen3 Collection</b> (click to expand)</summary>
 
 - [dnotitia/Smoothie-Qwen3-0.6B](https://huggingface.co/dnotitia/Smoothie-Qwen3-0.6B)
 - [dnotitia/Smoothie-Qwen3-1.7B](https://huggingface.co/dnotitia/Smoothie-Qwen3-1.7B)
@@ -20,7 +24,7 @@
 </details>
 
 <details>
-<summary><b>Smoothie-Qwen2.5 Collection</b> (click to expand)</summary>
+<summary><b>Smoothie Qwen2.5 Collection</b> (click to expand)</summary>
 
 - [dnotitia/Smoothie-Qwen2.5-0.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-0.5B-Instruct)
 - [dnotitia/Smoothie-Qwen2.5-1.5B-Instruct](https://huggingface.co/dnotitia/Smoothie-Qwen2.5-1.5B-Instruct)
@@ -400,11 +404,6 @@ Users can adjust the n-gram size to 3 or 4 for more refined token combination su
 - Unicode target ranges can be customized to suppress other languages or specific token patterns.
 - Additional analysis methods beyond N-gram may be supported in future versions.
 
-
-## References
-- Logo design with ❤️ by [J비주얼스쿨](https://www.jvisualschool.com/)
-- [Qwen2.5 모델 확률 조정을 통해 중국어 안나오게 하기](https://www.linkedin.com/posts/jg-choi_github-workddllmforeignblock-llm-%EB%AA%A8%EB%8D%B8%EC%9D%98-activity-7306159255936540673-_RoZ) - LinkedIn
-
 ## Citation
 ```
 @misc{ji2025smoothieqwenposthocsmoothingreduce,
@@ -417,3 +416,7 @@ Users can adjust the n-gram size to 3 or 4 for more refined token combination su
       url={https://arxiv.org/abs/2507.05686}, 
 }
 ```
+
+## References
+- Logo design with ❤️ by [J비주얼스쿨](https://www.jvisualschool.com/)
+- [Qwen2.5 모델 확률 조정을 통해 중국어 안나오게 하기](https://www.linkedin.com/posts/jg-choi_github-workddllmforeignblock-llm-%EB%AA%A8%EB%8D%B8%EC%9D%98-activity-7306159255936540673-_RoZ) - LinkedIn
