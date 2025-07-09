@@ -404,3 +404,16 @@ Users can adjust the n-gram size to 3 or 4 for more refined token combination su
 ## References
 - Logo design with ❤️ by [J비주얼스쿨](https://www.jvisualschool.com/)
 - [Qwen2.5 모델 확률 조정을 통해 중국어 안나오게 하기](https://www.linkedin.com/posts/jg-choi_github-workddllmforeignblock-llm-%EB%AA%A8%EB%8D%B8%EC%9D%98-activity-7306159255936540673-_RoZ) - LinkedIn
+
+## Citation
+```
+@misc{ji2025smoothieqwenposthocsmoothingreduce,
+      title={Smoothie-Qwen: Post-Hoc Smoothing to Reduce Language Bias in Multilingual LLMs}, 
+      author={SeungWon Ji and Jungyup Lee and Jemin Kim and Sang Park and SeungJae Lee},
+      year={2025},
+      eprint={2507.05686},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2507.05686}, 
+}
+```
